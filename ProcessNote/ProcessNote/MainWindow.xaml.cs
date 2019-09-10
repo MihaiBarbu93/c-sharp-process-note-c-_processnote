@@ -21,22 +21,15 @@ namespace ProcessNote
     /// </summary>
     public partial class MainWindow : Window
     {
-        private List<Process> _processess;
+        private List<Process> _processes;
 
         public MainWindow()
         {
             InitializeComponent();
-            //DataContext = new MainWindowViewModel();
 
-            _processess = new List<Process>();
-
-            processTable.ItemsSource = _processess;
-
-            _processess.Add(new Process { PID = 1, Name = "Test1" });
-            _processess.Add(new Process { PID = 2, Name = "Test2" });
-            _processess.Add(new Process { PID = 3, Name = "Test3" });
-            _processess.Add(new Process { PID = 4, Name = "Test4" });
-            _processess.Add(new Process { PID = 5, Name = "new" });
+            _processes = new List<Process>();
+            processTable.ItemsSource = _processes;
+            Process.getProcesses(_processes);
         }
 
     }

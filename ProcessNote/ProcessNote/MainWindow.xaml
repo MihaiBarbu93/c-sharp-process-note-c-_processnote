@@ -24,7 +24,12 @@
 
         </Grid>
         <Grid DockPanel.Dock="Left" Width="321" Margin="0,0,0,-188.8">
-            <DataGrid Name="processTable" />
+            <DataGrid Name="processTable" AutoGenerateColumns="False" IsReadOnly="True" CanUserResizeColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="PID" Binding="{Binding PID}" />
+                    <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*"/>
+                </DataGrid.Columns>
+            </DataGrid>
         </Grid>
         
         <Grid Margin="0,0,0,77.2" Width="338">
