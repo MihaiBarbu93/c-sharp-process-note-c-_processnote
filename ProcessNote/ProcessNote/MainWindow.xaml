@@ -5,8 +5,35 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProcessNote"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        Title="MainWindow" Height="510" Width="800">
+    <DockPanel HorizontalAlignment="Left" Height="416" LastChildFill="False" Margin="66,39,0,0" VerticalAlignment="Top" Width="660">
+
+        <Grid DockPanel.Dock="Bottom" Height="189" Margin="321,0,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <ListView HorizontalAlignment="Left" Height="80" VerticalAlignment="Bottom" Width="340" Margin="0,0,-0.8,106">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <Button Content="Add comment" HorizontalAlignment="Left" Height="31" Margin="203,6,0,0" VerticalAlignment="Top" Width="119"/>
+            <Label Content="Comments" HorizontalAlignment="Left" Height="31" Margin="19,8,0,0" VerticalAlignment="Top" Width="75"/>
+
+        </Grid>
+        <DataGrid DockPanel.Dock="Left" Width="321" Margin="0,0,0,-46.2">Left</DataGrid>
+        <Grid Margin="0,0,0,4.6" Width="338">
+            <TextBox HorizontalAlignment="Left" Height="41" Margin="82,35,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="68"/>
+            <TextBox HorizontalAlignment="Left" Height="41" Margin="174,35,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="68"/>
+            <TextBox HorizontalAlignment="Left" Height="41" Margin="82,104,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="68"/>
+            <TextBox HorizontalAlignment="Left" Height="41" Margin="174,104,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="68"/>
+            <Label Content="CPU Usage" HorizontalAlignment="Left" Height="25" Margin="81,5,0,0" VerticalAlignment="Top" Width="69"/>
+            <Label Content="Running Time" HorizontalAlignment="Left" Height="25" Margin="174,5,0,0" VerticalAlignment="Top" Width="87"/>
+            <Label Content="Memory Usage" HorizontalAlignment="Left" Height="25" Margin="77,80,0,0" VerticalAlignment="Top" Width="92"/>
+            <Label Content="Start Time" HorizontalAlignment="Left" Height="25" Margin="174,80,0,0" VerticalAlignment="Top" Width="69"/>
+        </Grid>
+        <Button DockPanel.Dock="Top" Height="50" Margin="0,150,0,-10">Top</Button>
+    </DockPanel>
 </Window>
