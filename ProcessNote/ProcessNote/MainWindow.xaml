@@ -10,9 +10,9 @@
 
         <Grid DockPanel.Dock="Bottom" Height="189" Margin="321,0,0,0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <ListView HorizontalAlignment="Left" Height="80" VerticalAlignment="Bottom" Width="340" Margin="0,0,-0.8,106">
+            <ListView HorizontalAlignment="Left" Height="189" VerticalAlignment="Bottom" Width="339">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn/>
@@ -23,8 +23,11 @@
             <Label Content="Comments" HorizontalAlignment="Left" Height="31" Margin="19,8,0,0" VerticalAlignment="Top" Width="75"/>
 
         </Grid>
-        <DataGrid DockPanel.Dock="Left" Width="321" Margin="0,0,0,-46.2">Left</DataGrid>
-        <Grid Margin="0,0,0,4.6" Width="338">
+        <Grid DockPanel.Dock="Left" Width="321" Margin="0,0,0,-188.8">
+            <DataGrid Name="processTable" />
+        </Grid>
+        
+        <Grid Margin="0,0,0,77.2" Width="338">
             <TextBox HorizontalAlignment="Left" Height="41" Margin="82,35,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="68"/>
             <TextBox HorizontalAlignment="Left" Height="41" Margin="174,35,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="68"/>
             <TextBox HorizontalAlignment="Left" Height="41" Margin="82,104,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="68"/>
