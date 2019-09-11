@@ -24,14 +24,19 @@
 
         </Grid>
         <Grid DockPanel.Dock="Left" Width="321" Margin="0,0,0,-188.8">
-            <DataGrid Name="processTable" />
+            <DataGrid Name="processTable" AutoGenerateColumns="False" IsReadOnly="True" CanUserResizeColumns="False" MouseDoubleClick ="dataGrid_MouseDoubleClick">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="PID" Binding="{Binding Id}"/>
+                    <DataGridTextColumn Header="Name" Binding="{Binding ProcessName}"/>
+                </DataGrid.Columns>
+            </DataGrid>
         </Grid>
         
         <Grid Margin="0,0,0,77.2" Width="338">
-            <TextBox HorizontalAlignment="Left" Height="41" Margin="82,35,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="68"/>
-            <TextBox HorizontalAlignment="Left" Height="41" Margin="174,35,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="68"/>
-            <TextBox HorizontalAlignment="Left" Height="41" Margin="82,104,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="68"/>
-            <TextBox HorizontalAlignment="Left" Height="41" Margin="174,104,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="68"/>
+            <TextBox Name ="CPU" HorizontalAlignment="Left" Height="41" Margin="82,35,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="68"/>
+            <TextBox Name ="RunningTime" HorizontalAlignment="Left" Height="41" Margin="174,35,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="68"/>
+            <TextBox Name ="MemoryUsage" HorizontalAlignment="Left" Height="41" Margin="82,104,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="68"/>
+            <TextBox Name ="StartTime" HorizontalAlignment="Left" Height="41" Margin="174,104,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="68"/>
             <Label Content="CPU Usage" HorizontalAlignment="Left" Height="25" Margin="81,5,0,0" VerticalAlignment="Top" Width="69"/>
             <Label Content="Running Time" HorizontalAlignment="Left" Height="25" Margin="174,5,0,0" VerticalAlignment="Top" Width="87"/>
             <Label Content="Memory Usage" HorizontalAlignment="Left" Height="25" Margin="77,80,0,0" VerticalAlignment="Top" Width="92"/>
