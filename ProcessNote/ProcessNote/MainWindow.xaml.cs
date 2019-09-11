@@ -35,6 +35,8 @@ namespace ProcessNote
             //DataContext = new MainWindowViewModel();
 
             Process[] processlist = Process.GetProcesses();
+            //ProcessThreadCollection[] threadslist;
+     
 
             /*foreach (Process theprocess in processlist)
             {
@@ -44,11 +46,10 @@ namespace ProcessNote
 
 
             _processess = new List<Process>(processlist);
+    
 
             processTable.ItemsSource = _processess;
-
-
-
+  
 
         }
         public class DataGridViewCellEventArgs : EventArgs
@@ -57,9 +58,13 @@ namespace ProcessNote
         }
 
 
+        private static DateTime lastTime;
+        private static TimeSpan lastTotalProcessorTime;
+        private static DateTime curTime;
+        private static TimeSpan curTotalProcessorTime;
 
 
-    private void dataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void dataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (sender != null)
             {
@@ -85,16 +90,42 @@ namespace ProcessNote
                         }
                     }
 
+                    ProcessThread[] threadslist = obj.Threads.Cast<ProcessThread>().ToArray();
+                    //_threads = new List<ProcessThread>(threadslist);
+                    threadsTable.ItemsSource = threadslist;//_threads;
+
                     var cpuUsage = new PerformanceCounter("Process", "% Processor Time", name, true);
                     var ramUsage = new PerformanceCounter("Process", "Working Set - Private", name, true);
 
+                    double CPUUsage = 0;
+                    //Process[] pp = Process.GetProcessById(name);
+                    //Process p = pp[0];
+
+                    Process p = obj;
+       
+                    if (lastTime == null || lastTime == new DateTime())
+                    {
+                        lastTime = DateTime.Now;
+                        lastTotalProcessorTime = p.TotalProcessorTime;
+                    }
+                    else
+                    {
+                        curTime = DateTime.Now;
+                        curTotalProcessorTime = p.TotalProcessorTime;
+
+                        CPUUsage = (curTotalProcessorTime.TotalMilliseconds - lastTotalProcessorTime.TotalMilliseconds) / curTime.Subtract(lastTime).TotalMilliseconds / Convert.ToDouble(Environment.ProcessorCount);
+                        //Console.WriteLine("{0} CPU: {1:0.0}%", name, CPUUsage * 100);
+
+                        lastTime = curTime;
+                        lastTotalProcessorTime = curTotalProcessorTime;
+                    }
 
                     // Getting first initial values
                     //cpuUsage.NextValue();
                     //ramUsage.NextValue();
 
                     //Thread.Sleep(500);
-   
+
                     //curTime = DateTime.Now;
 
                     //PerformanceCounter myAppCpu = new PerformanceCounter("ID Process", "% Processor Time", obj.Id.ToString(), true);
@@ -103,17 +134,22 @@ namespace ProcessNote
 
                     var specifier = "P";
 
+
                     string id = obj.Id.ToString();
                     //CPU.Text = id;
 
-                    StartTime.Text = obj.StartTime.ToUniversalTime().ToString("HH:mm:ss");
+                    StartTime.Text = obj.StartTime.ToString("HH:mm:ss");
                     //CPU.Text = (pct/10000).ToString(specifier);
-                    CPU.Text = Math.Round(cpuUsage.NextValue() / Environment.ProcessorCount, 2).ToString(specifier);
-                    MemoryUsage.Text = (ramUsage.NextValue() / 1024).ToString();
+                    //CPU.Text = Math.Round(cpuUsage.NextValue() / Environment.ProcessorCount, 2).ToString();
+                    //CPU.Text = (cpuUsage.RawValue / Environment.ProcessorCount).ToString();
+                    //CPU.Text = (cpuUsage.RawValue/Environment.ProcessorCount/10000).ToString();
+                    CPU.Text = (CPUUsage).ToString(specifier);
+                    MemoryUsage.Text = (ramUsage.NextValue() / 1024).ToString("0.00") + " KB";
                     RunningTime.Text = obj.UserProcessorTime.ToString();
                 }
             }
         }
+
 
     }
 }
