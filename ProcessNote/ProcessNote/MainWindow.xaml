@@ -42,7 +42,8 @@
             <Label Content="Running Time" HorizontalAlignment="Left" Height="25" Margin="174,5,0,0" VerticalAlignment="Top" Width="87"/>
             <Label Content="Memory Usage" HorizontalAlignment="Left" Height="25" Margin="77,80,0,0" VerticalAlignment="Top" Width="92"/>
             <Label Content="Start Time" HorizontalAlignment="Left" Height="25" Margin="174,80,0,0" VerticalAlignment="Top" Width="69"/>
-            <Button Margin="29,174,224,-54" Click="Open_Click">Show threads</Button>
+            <Button Margin="29,174,224,-54" Click="Open_ThreadsWindow" Content="Show threads"/>
+            <Button Margin="119,174,135,-55" Content="Add comment"/>
         </Grid>
         
     </DockPanel>

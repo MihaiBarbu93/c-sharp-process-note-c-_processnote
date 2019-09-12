@@ -33,7 +33,7 @@ namespace ProcessNote
         }
 
 
-        private void Open_Click(object sender, RoutedEventArgs e)
+        private void Open_ThreadsWindow(object sender, RoutedEventArgs e)
         {
 
             DataGridRow dgr = processTable.ItemContainerGenerator.ContainerFromItem(processTable.SelectedItem) as DataGridRow;
@@ -44,7 +44,7 @@ namespace ProcessNote
             dialog.ShowDialog();
 
         }
-
+        
         public class DataGridViewCellEventArgs : EventArgs
         {
 
