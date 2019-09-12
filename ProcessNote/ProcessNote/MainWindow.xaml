@@ -26,8 +26,8 @@
         <Grid DockPanel.Dock="Left" Width="321" Margin="0,0,0,-188.8">
             <DataGrid Name="processTable" AutoGenerateColumns="False" IsReadOnly="True" CanUserResizeColumns="False" MouseDoubleClick ="dataGrid_MouseDoubleClick" Margin="0,0,0,186">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="PID" Binding="{Binding Id}"/>
-                    <DataGridTextColumn Header="Name" Binding="{Binding ProcessName}"/>
+                    <DataGridTextColumn Header="PID" Binding="{Binding PID}"/>
+                    <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
                 </DataGrid.Columns>
             </DataGrid>
             <DataGrid Name="threadsTable" IsReadOnly="True" CanUserResizeColumns="False" HorizontalAlignment="Left" Height="181" Margin="10,235,0,0" VerticalAlignment="Top" Width="301">
