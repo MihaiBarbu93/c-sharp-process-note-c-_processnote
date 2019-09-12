@@ -44,6 +44,7 @@
 
             <Button Margin="29,174,224,-54" Click="Open_ThreadsWindow" Content="Show threads"/>
             <Button Margin="119,174,135,-55" Content="Add comment" Click="AddComment_Click"/>
+            <Button Margin="208,174,48,-56" Content="Search online" Click="Search_Click"/>
 
         </Grid>
 

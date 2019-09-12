@@ -35,18 +35,15 @@ namespace ProcessNote
 
         private void Open_ThreadsWindow(object sender, RoutedEventArgs e)
         {
+            if (processTable.SelectedItems != null && processTable.SelectedItems.Count == 1)
+            {
+                DataGridRow dgr = processTable.ItemContainerGenerator.ContainerFromItem(processTable.SelectedItem) as DataGridRow;
+                SimpleProcess process = dgr.Item as SimpleProcess;
 
-            DataGridRow dgr = processTable.ItemContainerGenerator.ContainerFromItem(processTable.SelectedItem) as DataGridRow;
-            SimpleProcess process = dgr.Item as SimpleProcess;
 
-            
-            var dialog = new threadsDialog(process.ThreadsList);
-            dialog.ShowDialog();
-
-        }
-        
-        public class DataGridViewCellEventArgs : EventArgs
-        {
+                var dialog = new threadsDialog(process.ThreadsList);
+                dialog.ShowDialog();
+            }
 
         }
 
@@ -67,7 +64,7 @@ namespace ProcessNote
             if (sender != null)
             {
                 DataGrid grid = sender as DataGrid;
-                refreshData(grid);
+                refreshData();
             }
         }
 
@@ -76,15 +73,15 @@ namespace ProcessNote
             if (sender != null)
             {
                 DataGrid grid = sender as DataGrid;
-                refreshData(grid);
+                refreshData();
             }
         }
 
-        private void refreshData(DataGrid grid)
+        private void refreshData()
         {
-            if (grid != null && grid.SelectedItems != null && grid.SelectedItems.Count == 1)
+            if (processTable.SelectedItems != null && processTable.SelectedItems.Count == 1)
             {
-                DataGridRow dgr = grid.ItemContainerGenerator.ContainerFromItem(grid.SelectedItem) as DataGridRow;
+                DataGridRow dgr = processTable.ItemContainerGenerator.ContainerFromItem(processTable.SelectedItem) as DataGridRow;
                 SimpleProcess process = dgr.Item as SimpleProcess;
 
                 StartTime.Text = process.StartTime;
@@ -97,15 +94,25 @@ namespace ProcessNote
 
         private void AddComment_Click(object sender, RoutedEventArgs e)
         {
-
             if (processTable.SelectedItems != null && processTable.SelectedItems.Count == 1)
             {
                 var dialog = new commentsDialog();
                 dialog.ShowDialog();
             }
+        }
 
-
-
+        private void Search_Click(object sender, RoutedEventArgs e)
+        {
+            if (processTable.SelectedItems != null && processTable.SelectedItems.Count == 1)
+            {
+                DataGridRow dgr = processTable.ItemContainerGenerator.ContainerFromItem(processTable.SelectedItem) as DataGridRow;
+                SimpleProcess process = dgr.Item as SimpleProcess;
+                Process.Start("http://google.com/search?q="+process.Name);
+            }
+            else
+            {
+                Process.Start("https://github.com/CodecoolGlobal/c-sharp-process-note-c-_processnote");
+            }
         }
     }
 }
