@@ -62,26 +62,36 @@ namespace ProcessNote
             processTable.ItemsSource = _processess;
         }
                
+        private void dataGrid_selectedRow(object sender, SelectionChangedEventArgs e)
+        {
+            if (sender != null)
+            {
+                DataGrid grid = sender as DataGrid;
+                refreshData(grid);
+            }
+        }
+
         private void dataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (sender != null)
             {
                 DataGrid grid = sender as DataGrid;
-                if (grid != null && grid.SelectedItems != null && grid.SelectedItems.Count == 1)
-                {
-                    DataGridRow dgr = grid.ItemContainerGenerator.ContainerFromItem(grid.SelectedItem) as DataGridRow;
-                    SimpleProcess process = dgr.Item as SimpleProcess;
-
-                    //threadsTable.ItemsSource = process.ThreadsList;
-
-                    StartTime.Text = process.StartTime;
-                    CPU.Text = process.getCPU_Usage();
-                    MemoryUsage.Text = process.getRamUsage();
-                    RunningTime.Text = process.ElapsedTime;
-                }
+                refreshData(grid);
             }
         }
 
+        private void refreshData(DataGrid grid)
+        {
+            if (grid != null && grid.SelectedItems != null && grid.SelectedItems.Count == 1)
+            {
+                DataGridRow dgr = grid.ItemContainerGenerator.ContainerFromItem(grid.SelectedItem) as DataGridRow;
+                SimpleProcess process = dgr.Item as SimpleProcess;
 
+                StartTime.Text = process.StartTime;
+                CPU.Text = process.getCPU_Usage();
+                MemoryUsage.Text = process.getRamUsage();
+                RunningTime.Text = process.ElapsedTime;
+            }
+        }
     }
 }
