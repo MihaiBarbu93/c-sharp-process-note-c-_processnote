@@ -18,7 +18,8 @@ namespace ProcessNote
             {
                 try
                 {
-                    return process.UserProcessorTime.ToString();
+                    return (DateTime.UtcNow - process.StartTime.ToUniversalTime()).ToString();
+                    //return process.UserProcessorTime.ToString();
                 }
                 catch (Exception e)
                 {

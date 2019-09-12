@@ -24,7 +24,7 @@
 
         </Grid>
         <Grid DockPanel.Dock="Left" Width="321" Margin="0,0,0,-188.8">
-            <DataGrid Name="processTable" AutoGenerateColumns="False" IsReadOnly="True" MouseDown="dataGrid_MouseDoubleClick" CanUserResizeColumns="False" Margin="0,0,0,10">
+            <DataGrid Name="processTable" AutoGenerateColumns="False" IsReadOnly="True" SelectionChanged="dataGrid_selectedRow" MouseDoubleClick="dataGrid_MouseDoubleClick" CanUserResizeColumns="False" Margin="0,0,0,10">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="PID" Binding="{Binding PID}"/>
                     <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
@@ -42,8 +42,9 @@
             <Label Content="Running Time" HorizontalAlignment="Left" Height="25" Margin="174,5,0,0" VerticalAlignment="Top" Width="87"/>
             <Label Content="Memory Usage" HorizontalAlignment="Left" Height="25" Margin="77,80,0,0" VerticalAlignment="Top" Width="92"/>
             <Label Content="Start Time" HorizontalAlignment="Left" Height="25" Margin="174,80,0,0" VerticalAlignment="Top" Width="69"/>
-            <Button Margin="29,164,224,-54" Click="Open_Click">Show threads</Button>
 
+            <Button Margin="29,174,224,-54" Click="Open_ThreadsWindow" Content="Show threads"/>
+            <Button Margin="119,174,135,-55" Content="Add comment"/>
 
         </Grid>
 
