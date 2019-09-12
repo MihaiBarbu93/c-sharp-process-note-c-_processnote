@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using System.Threading;
 
 namespace ProcessNote
 {
@@ -13,7 +14,18 @@ namespace ProcessNote
         public int PID { get { return process.Id; } }
         public string Name { get { return process.ProcessName; } }
         public string StartTime { get; }
-        public string ElapsedTime { get; }
+        public string ElapsedTime { get
+            {
+                try
+                {
+                    return process.UserProcessorTime.ToString();
+                }
+                catch (Exception e)
+                {
+                    return "N/A";
+                }
+            }
+        }
         public ProcessThread[] ThreadsList { get { return process.Threads.Cast<ProcessThread>().ToArray(); } }
 
         private DateTime lastTime;
@@ -30,14 +42,7 @@ namespace ProcessNote
             {
                 StartTime = "N/A";
             }
-            try
-            {
-                ElapsedTime = process.UserProcessorTime.ToString();
-            }
-            catch(Exception e)
-            {
-                ElapsedTime = "N/A";
-            }
+            
             lastTime = DateTime.Now;
             try
             {
@@ -67,15 +72,12 @@ namespace ProcessNote
             {
                 return "N/A";
             }
-            var cpuUsage = new PerformanceCounter("Process", "% Processor Time", instanceName, true);
-
             double CPUUsage = (curTotalProcessorTime.TotalMilliseconds - lastTotalProcessorTime.TotalMilliseconds)
                 / curTime.Subtract(lastTime).TotalMilliseconds
                 / Convert.ToDouble(Environment.ProcessorCount);
 
             lastTime = curTime;
             lastTotalProcessorTime = curTotalProcessorTime;
-
             return (CPUUsage).ToString("P");
         }
 
