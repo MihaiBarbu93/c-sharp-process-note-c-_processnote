@@ -27,6 +27,9 @@ namespace ProcessNote
                 }
             }
         }
+
+        public List<string> Comments;
+
         public ProcessThread[] ThreadsList { get { return process.Threads.Cast<ProcessThread>().ToArray(); } }
 
         private DateTime lastTime;
@@ -54,6 +57,12 @@ namespace ProcessNote
                 lastTotalProcessorTime = TimeSpan.Zero;
             }
             this.process = process;
+
+            Comments = new List<string>();
+            //Comments.Add("agag");
+            //Comments.Add("asdad");
+
+
         }
 
         public string getCPU_Usage()

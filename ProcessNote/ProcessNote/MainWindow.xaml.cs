@@ -91,7 +91,21 @@ namespace ProcessNote
                 CPU.Text = process.getCPU_Usage();
                 MemoryUsage.Text = process.getRamUsage();
                 RunningTime.Text = process.ElapsedTime;
+                commentsList.ItemsSource = process.Comments;
             }
+        }
+
+        private void AddComment_Click(object sender, RoutedEventArgs e)
+        {
+
+            if (processTable.SelectedItems != null && processTable.SelectedItems.Count == 1)
+            {
+                var dialog = new commentsDialog();
+                dialog.ShowDialog();
+            }
+
+
+
         }
     }
 }

@@ -12,15 +12,14 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <ListView HorizontalAlignment="Left" Height="179" VerticalAlignment="Bottom" Width="339" Margin="0,0,0,10">
+            <ListView Name ="commentsList" HorizontalAlignment="Left" Height="156" VerticalAlignment="Top" Width="339" Margin="0,23,0,0">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn/>
+                        <GridViewColumn Header="Comments" Width="339"/>
                     </GridView>
                 </ListView.View>
             </ListView>
-            <Button Content="Add comment" HorizontalAlignment="Left" Height="31" Margin="203,6,0,0" VerticalAlignment="Top" Width="119"/>
-            <Label Content="Comments" HorizontalAlignment="Left" Height="31" Margin="19,8,0,0" VerticalAlignment="Top" Width="75"/>
+            
 
         </Grid>
         <Grid DockPanel.Dock="Left" Width="321" Margin="0,0,0,-188.8">
@@ -44,7 +43,7 @@
             <Label Content="Start Time" HorizontalAlignment="Left" Height="25" Margin="174,80,0,0" VerticalAlignment="Top" Width="69"/>
 
             <Button Margin="29,174,224,-54" Click="Open_ThreadsWindow" Content="Show threads"/>
-            <Button Margin="119,174,135,-55" Content="Add comment"/>
+            <Button Margin="119,174,135,-55" Content="Add comment" Click="AddComment_Click"/>
 
         </Grid>
 
