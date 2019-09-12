@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProcessNote"
         mc:Ignorable="d"
-        Title="MainWindow" Height="510" Width="800">
+        Title="PROCESS NOTE" Height="510" Width="800">
     <DockPanel HorizontalAlignment="Left" Height="416" LastChildFill="False" Margin="66,39,0,0" VerticalAlignment="Top" Width="660">
 
         <Grid DockPanel.Dock="Bottom" Height="189" Margin="321,0,0,0">
@@ -19,32 +19,31 @@
                     </GridView>
                 </ListView.View>
             </ListView>
-            
+
 
         </Grid>
         <Grid DockPanel.Dock="Left" Width="321" Margin="0,0,0,-188.8">
             <DataGrid Name="processTable" AutoGenerateColumns="False" IsReadOnly="True" SelectionChanged="dataGrid_selectedRow" MouseDoubleClick="dataGrid_MouseDoubleClick" CanUserResizeColumns="False" Margin="0,0,0,10">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="PID" Binding="{Binding PID}"/>
-                    <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
+                    <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="245"/>
                 </DataGrid.Columns>
             </DataGrid>
 
         </Grid>
 
         <Grid Margin="0,0,0,77.2" Width="338">
-            <TextBox Name ="CPU" HorizontalAlignment="Left" Height="41" Margin="82,35,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="68"/>
-            <TextBox Name ="RunningTime" HorizontalAlignment="Left" Height="41" Margin="174,35,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="68"/>
-            <TextBox Name ="MemoryUsage" HorizontalAlignment="Left" Height="41" Margin="82,104,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="68"/>
-            <TextBox Name ="StartTime" HorizontalAlignment="Left" Height="41" Margin="174,104,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="68"/>
-            <Label Content="CPU Usage" HorizontalAlignment="Left" Height="25" Margin="81,5,0,0" VerticalAlignment="Top" Width="69"/>
-            <Label Content="Running Time" HorizontalAlignment="Left" Height="25" Margin="174,5,0,0" VerticalAlignment="Top" Width="87"/>
-            <Label Content="Memory Usage" HorizontalAlignment="Left" Height="25" Margin="77,80,0,0" VerticalAlignment="Top" Width="92"/>
-            <Label Content="Start Time" HorizontalAlignment="Left" Height="25" Margin="174,80,0,0" VerticalAlignment="Top" Width="69"/>
-
-            <Button Margin="29,174,224,-54" Click="Open_ThreadsWindow" Content="Show threads"/>
-            <Button Margin="119,174,135,-55" Content="Add comment" Click="AddComment_Click"/>
-            <Button Margin="208,174,48,-56" Content="Search online" Click="Search_Click"/>
+            <TextBox Name ="RunningTime" HorizontalAlignment="Left" Height="45" Margin="191,35,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="90"/>
+            <TextBox x:Name ="CPU" HorizontalAlignment="Left" Height="45" Margin="60,35,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="90"/>
+            <TextBox Name ="StartTime" HorizontalAlignment="Left" Height="45" Margin="191,104,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="90"/>
+            <TextBox x:Name ="MemoryUsage" HorizontalAlignment="Left" Height="45" Margin="60,104,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="90"/>
+            <Label Content="Run Time" HorizontalAlignment="Left" Height="25" Margin="191,10,0,0" VerticalAlignment="Top" Width="90"/>
+            <Label Content="CPU Usage" HorizontalAlignment="Left" Height="25" Margin="60,10,0,0" VerticalAlignment="Top" Width="90"/>
+            <Label Content="Start Time" HorizontalAlignment="Left" Height="25" Margin="191,80,0,0" VerticalAlignment="Top" Width="90"/>
+            <Label Content="Memory Usage" HorizontalAlignment="Left" Height="25" Margin="60,80,0,0" VerticalAlignment="Top" Width="100"/>
+            <Button Margin="40,192,213,-85" Content="Show &#10;threads" Click="Open_ThreadsWindow"/>
+            <Button Margin="130,192,124,-85" Content="Add &#10;comment" Click="AddComment_Click"/>
+            <Button Margin="219,192,37,-85" Content="Search &#10;online" Click="Search_Click"/>
 
         </Grid>
 

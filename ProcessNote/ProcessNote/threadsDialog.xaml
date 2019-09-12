@@ -6,10 +6,9 @@
         mc:Ignorable="d"
         Title="threadsDialog" Height="450" Width="800">
     <Grid>
-        <DataGrid Name="threadsTable2" AutoGenerateColumns="False" IsReadOnly="True" CanUserResizeColumns="False" HorizontalAlignment="Left" Height="392" Margin="10,24,0,0" VerticalAlignment="Top" Width="774">
+        <DataGrid Name="threadsTable2" AutoGenerateColumns="True" IsReadOnly="True" CanUserResizeColumns="False" HorizontalAlignment="Left" Height="392" Margin="10,24,0,0" VerticalAlignment="Top" Width="774">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
-                <DataGridTextColumn Header="State" Binding="{Binding ThreadState}"/>
+                
             </DataGrid.Columns>
         </DataGrid>
     </Grid>
