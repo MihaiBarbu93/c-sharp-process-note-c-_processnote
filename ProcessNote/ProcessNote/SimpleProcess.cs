@@ -18,7 +18,7 @@ namespace ProcessNote
 
         private DateTime lastTime;
         private TimeSpan lastTotalProcessorTime;
-        private Process process;
+        public Process process;
 
         public SimpleProcess(Process process)
         {

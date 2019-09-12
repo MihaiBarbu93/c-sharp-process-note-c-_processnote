@@ -31,6 +31,20 @@ namespace ProcessNote
             InitializeComponent();
             getProcesses();
         }
+
+
+        private void Open_Click(object sender, RoutedEventArgs e)
+        {
+
+            DataGridRow dgr = processTable.ItemContainerGenerator.ContainerFromItem(processTable.SelectedItem) as DataGridRow;
+            SimpleProcess process = dgr.Item as SimpleProcess;
+
+            
+            var dialog = new threadsDialog(process.ThreadsList);
+            dialog.ShowDialog();
+
+        }
+
         public class DataGridViewCellEventArgs : EventArgs
         {
 
@@ -58,7 +72,7 @@ namespace ProcessNote
                     DataGridRow dgr = grid.ItemContainerGenerator.ContainerFromItem(grid.SelectedItem) as DataGridRow;
                     SimpleProcess process = dgr.Item as SimpleProcess;
 
-                    threadsTable.ItemsSource = process.ThreadsList;
+                    //threadsTable.ItemsSource = process.ThreadsList;
 
                     StartTime.Text = process.StartTime;
                     CPU.Text = process.getCPU_Usage();
