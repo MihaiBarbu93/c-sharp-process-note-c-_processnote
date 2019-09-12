@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using System.Threading;
 
 namespace ProcessNote
 {
@@ -71,17 +72,13 @@ namespace ProcessNote
             {
                 return "N/A";
             }
-            var cpuUsage = new PerformanceCounter("Process", "% Processor Time", instanceName, true);
-            float cpu = cpuUsage.NextValue();// / Environment.ProcessorCount;
-
             double CPUUsage = (curTotalProcessorTime.TotalMilliseconds - lastTotalProcessorTime.TotalMilliseconds)
                 / curTime.Subtract(lastTime).TotalMilliseconds
                 / Convert.ToDouble(Environment.ProcessorCount);
 
             lastTime = curTime;
             lastTotalProcessorTime = curTotalProcessorTime;
-            return (cpu).ToString();
-            //return (CPUUsage).ToString("P");
+            return (CPUUsage).ToString("P");
         }
 
         public string getRamUsage()
