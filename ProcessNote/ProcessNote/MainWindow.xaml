@@ -5,8 +5,40 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProcessNote"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="Process Note" Height="650" Width="800" WindowStyle="None" ResizeMode="CanResize">
+    <Border CornerRadius="5" Background="White" BorderBrush="Gray" BorderThickness="0.3">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60"></RowDefinition>
+                <RowDefinition Height="470"></RowDefinition>
+                <RowDefinition Height="130"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Border BorderBrush="Black" BorderThickness="2">
+                <Grid Background="#333" Grid.Row="0" Cursor="Arrow" Margin="0">
+                    <TextBlock Foreground="#999" HorizontalAlignment="Center" Margin="5" FontWeight="Bold" FontSize="12">Process Note</TextBlock>
+                    <Button BorderThickness="0" Background="#444" Foreground="AntiqueWhite" Width="30" Height="20" Margin="14,27,749.6,13" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10">X</Button>
+                    <Button BorderThickness="0" Background="#444" Foreground="AntiqueWhite" Width="30" Height="20" Margin="52,27,711.6,13" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10" RenderTransformOrigin="-17.521,1.324">I</Button>
+                    <Button BorderThickness="0" Background="#444" Foreground="AntiqueWhite" Width="30" Height="20" Margin="89,27,674.6,13" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10">S</Button>
+                </Grid>
+            </Border>
+            <Grid Grid.Row="1" Background="#333">
+                <ListView Margin="0" Name="lvUsers" Background="#333">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Name" Width="120" DisplayMemberBinding="{Binding Name}" />
+                            <GridViewColumn Header="PID" Width="50" DisplayMemberBinding="{Binding PID}" />
+                            <GridViewColumn Header="CPU" Width="150" DisplayMemberBinding="{Binding CPU}" />
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Grid>
+            <Grid Grid.Row="2" Background="#333">
+            </Grid>
+            <Ellipse Fill="Red" Grid.Row="0" Height="12" Width="12" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="5,3,0,0" Cursor="Hand" ToolTip="Close"/>
+            <Ellipse Fill="Orange" Grid.Row="0" Height="12" Width="12" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="25,3,10,0" Cursor="Hand" ToolTip="Minimize"/>
+            <Ellipse Fill="Green" Grid.Row="0" Height="12" Width="12" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="45,3,10,0" Cursor="Hand" ToolTip="Maximize"/>
+        </Grid>
         
-    </Grid>
+    </Border>
+    
 </Window>
