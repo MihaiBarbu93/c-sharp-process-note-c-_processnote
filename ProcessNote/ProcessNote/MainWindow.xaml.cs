@@ -23,6 +23,7 @@ namespace ProcessNote
         public MainWindow()
         {
             InitializeComponent();
+            MainWindow.BackgroundProperty.ToString();
         }
     }
 }
