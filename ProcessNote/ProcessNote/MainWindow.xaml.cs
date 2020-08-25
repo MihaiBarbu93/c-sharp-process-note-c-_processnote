@@ -50,7 +50,7 @@ namespace ProcessNote
                 ProcessThreadCollection t = p.Threads;
                 
                
-                ProcessInfo.Add(new ProcessInf() { Name = p.ProcessName, PID = p.Id, Memory = Math.Round(ram / 1024, 2).ToString() + " Mb", CPU= pct, Threads = t.Count.ToString() });
+                ProcessInfo.Add(new ProcessInf() { Name = p.ProcessName, PID = p.Id, Memory = Math.Round(ram / 1024, 2).ToString() + " Mb", CPU = (Math.Round(pct, 2)).ToString() + "%", Threads = t.Count.ToString() });
                 
             }
 
@@ -66,7 +66,7 @@ namespace ProcessNote
 
             public String Memory { get; set; }
 
-            public double CPU { get; set; }
+            public String CPU { get; set; }
 
             public String Threads { get; set; }
 

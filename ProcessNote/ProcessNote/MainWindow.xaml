@@ -29,7 +29,7 @@
                             <GridViewColumn Header="PID" Width="50" DisplayMemberBinding="{Binding PID}" />
                             <GridViewColumn Header="Memory" Width="50" DisplayMemberBinding="{Binding Memory}" />
                             <GridViewColumn Header="CPU" Width="50" DisplayMemberBinding="{Binding CPU}" />
-                            <GridViewColumn Header="Theads" Width="50" DisplayMemberBinding="{Binding Threads}" />
+                            <GridViewColumn Header="Threads" Width="50" DisplayMemberBinding="{Binding Threads}" />
                         </GridView>
                     </ListView.View>
                 </ListView>
