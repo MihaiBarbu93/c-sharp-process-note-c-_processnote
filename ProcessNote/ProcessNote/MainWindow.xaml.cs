@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -32,9 +33,25 @@ namespace ProcessNote
             Process[] AllProcesses = Process.GetProcesses();
             List<ProcessInf> ProcessInfo = new List<ProcessInf>();
 
-            foreach(Process p in AllProcesses)
+
+            foreach (Process p in AllProcesses)
             {
-                ProcessInfo.Add(new ProcessInf() { Name = p.ProcessName, PID = p.Id});
+                PerformanceCounter myAppCpu =
+                new PerformanceCounter(
+                    "Process", "% Processor Time", p.ProcessName, true);
+                PerformanceCounter myAppRam = new PerformanceCounter("Process", "ID Process", p.ProcessName, true);
+
+                
+                double pct = myAppCpu.NextValue();
+                pct = myAppCpu.NextValue() / Environment.ProcessorCount;
+                double ram = myAppRam.NextValue();
+
+
+                ProcessThreadCollection t = p.Threads;
+                
+               
+                ProcessInfo.Add(new ProcessInf() { Name = p.ProcessName, PID = p.Id, Memory = Math.Round(ram / 1024, 2).ToString() + " Mb", CPU= pct, Threads = t.Count.ToString() });
+                
             }
 
             lvProcesses.ItemsSource = ProcessInfo;
@@ -46,6 +63,13 @@ namespace ProcessNote
             public string Name { get; set; }
 
             public int PID { get; set; }
+
+            public String Memory { get; set; }
+
+            public double CPU { get; set; }
+
+            public String Threads { get; set; }
+
 
         }
 
