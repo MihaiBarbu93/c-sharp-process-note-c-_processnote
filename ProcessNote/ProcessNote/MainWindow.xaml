@@ -22,11 +22,13 @@
                 </Grid>
             </Border>
             <Grid Grid.Row="1" Background="#333">
-                <ListView Margin="0" Name="lvProcesses" Background="#333" Foreground="AntiqueWhite">
+                <ListView Margin="0" Name="lvProcesses" Background="#333" Foreground="AntiqueWhite" SelectionChanged="lvProcesses_SelectionChanged">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="Name" Width="120" DisplayMemberBinding="{Binding Name}" />
                             <GridViewColumn Header="PID" Width="50" DisplayMemberBinding="{Binding PID}" />
+                            <GridViewColumn Header="CPU" Width="50" DisplayMemberBinding="{Binding CPU}" />
+                            <GridViewColumn Header="Memory" Width="50" DisplayMemberBinding="{Binding Memory}" />
                         </GridView>
                     </ListView.View>
                 </ListView>
