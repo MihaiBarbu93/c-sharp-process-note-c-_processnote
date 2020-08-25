@@ -29,40 +29,26 @@ namespace ProcessNote
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new ViewModel();
+            Process[] AllProcesses = Process.GetProcesses();
+            List<ProcessInf> ProcessInfo = new List<ProcessInf>();
+
+            foreach(Process p in AllProcesses)
+            {
+                ProcessInfo.Add(new ProcessInf() { Name = p.ProcessName, PID = p.Id});
+            }
+
+            lvProcesses.ItemsSource = ProcessInfo;
+
         }
 
-
-        public class ViewModel
+        public class ProcessInf
         {
-            public ObservableCollection<Process> Processes { get; }
-                = new ObservableCollection<Process>();
+            public string Name { get; set; }
 
-            public ViewModel()
-            {
-                var timer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(2) };
-                timer.Tick += UpdateProcesses;
-                timer.Start();
-            }
+            public int PID { get; set; }
 
-            private void UpdateProcesses(object sender, EventArgs e)
-            {
-                var currentIds = Processes.Select(p => p.Id).ToList();
-
-                foreach (var p in Process.GetProcesses())
-                {
-                    if (!currentIds.Remove(p.Id)) // it's a new process id
-                    {
-                        Processes.Add(p);
-                    }
-                }
-
-                foreach (var id in currentIds) // these do not exist any more
-                {
-                    Processes.Remove(Processes.First(p => p.Id == id));
-                }
-            }
         }
+
 
 
     }
