@@ -49,12 +49,34 @@ namespace ProcessNote
 
                 ProcessThreadCollection t = p.Threads;
                 
-               
+                
+
+
                 ProcessInfo.Add(new ProcessInf() { Name = p.ProcessName, PID = p.Id, Memory = Math.Round(ram / 1024, 2).ToString() + " Mb", CPU = (Math.Round(pct, 2)).ToString() + "%", Threads = t.Count.ToString() });
                 
             }
 
+           
             lvProcesses.ItemsSource = ProcessInfo;
+            lvProcesses.MouseDoubleClick += new MouseButtonEventHandler(lvProcesses_MouseDoubleClick);
+
+
+            //void lvProcesses_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+            //{
+            //    try
+            //    {
+            //        AllProcesses[lvProcesses.SelectedIndex].Refresh();
+
+            //    }
+            //    catch(Exception ex)
+            //    {
+            //        MessageBox.Show(ex.Message);
+            //    }
+
+            //}
+
+
+
 
         }
 
@@ -73,7 +95,35 @@ namespace ProcessNote
 
         }
 
+        private void lvProcesses_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            ListView processList = sender as ListView;
+            var p = processList.SelectedItem as ProcessInf;
+            var x = Process.GetProcessById(p.PID);
+            PerformanceCounter myAppCpu =
+                new PerformanceCounter(
+                    "Process", "% Processor Time", x.ProcessName, true);
 
+            double pct = myAppCpu.NextValue();
+            x.Refresh();
+            double pct1 = myAppCpu.NextValue();
+            // navigate to the list view item 
+            DependencyObject dep = (DependencyObject)e.OriginalSource;
+            while ((dep != null) && !(dep is ListViewItem))
+            {
+                dep = VisualTreeHelper.GetParent(dep);
+            }
 
+            if (dep == null)
+                return;
+
+            ListViewItem item = (ListViewItem)dep;
+            
+           
+            object myDataObject = item.Content;
+         
+            System.Diagnostics.Debug.WriteLine(myDataObject);
+           
+        }
     }
 }

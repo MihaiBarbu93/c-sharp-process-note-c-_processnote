@@ -22,7 +22,7 @@
                 </Grid>
             </Border>
             <Grid Grid.Row="1" Background="#333">
-                <ListView Margin="0" Name="lvProcesses" Background="#333" Foreground="AntiqueWhite">
+                <ListView Margin="0" Name="lvProcesses" Background="#333" Foreground="AntiqueWhite" MouseDoubleClick="lvProcesses_MouseDoubleClick">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="Name" Width="120" DisplayMemberBinding="{Binding Name}" />
