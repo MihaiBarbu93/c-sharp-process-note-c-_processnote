@@ -25,11 +25,10 @@ namespace ProcessNote
     public partial class MainWindow : Window
     {
 
-
-
         public MainWindow()
         {
             InitializeComponent();
+            this.MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;
             Process[] AllProcesses = Process.GetProcesses();
             List<ProcessInf> ProcessInfo = new List<ProcessInf>();
 
@@ -73,7 +72,58 @@ namespace ProcessNote
 
         }
 
+        private void Exit_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Application.Current.Shutdown();
+        }
 
+        private void Maximize_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.WindowState == WindowState.Normal) {
+                this.WindowState = WindowState.Maximized;
+            } 
+            else if (this.WindowState == WindowState.Maximized)
+            {
+                this.WindowState = WindowState.Normal;
+            }
+       
+        }
 
+        private void Minimize_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.WindowState == WindowState.Normal || this.WindowState == WindowState.Maximized)
+            {
+                this.WindowState = WindowState.Minimized;
+            } 
+            else if (this.WindowState == WindowState.Minimized)
+            {
+                this.WindowState = WindowState.Normal;
+            }
+        }
+
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            this.DragMove();
+        }
+
+        private void close_task_button_MouseEnter(object sender, MouseEventArgs e)
+        {
+            close_task_button.Background = Brushes.Gray;
+        }
+
+        private void close_task_button_MouseLeave(object sender, MouseEventArgs e)
+        {
+            close_task_button.Background = Brushes.DimGray;
+        }
+
+        private void Button_MouseEnter(object sender, MouseEventArgs e)
+        {
+            info_button.Background = Brushes.Gray;
+        }
+
+        private void Button_MouseLeave(object sender, MouseEventArgs e)
+        {
+            info_button.Background = Brushes.DimGray;
+        }
     }
 }
