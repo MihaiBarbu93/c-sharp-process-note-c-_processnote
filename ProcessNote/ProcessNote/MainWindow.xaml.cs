@@ -86,7 +86,7 @@ namespace ProcessNote
         private void statsSource_Loaded(object sender, RoutedEventArgs e)
         {
             _timer = new DispatcherTimer();
-            _timer.Interval = new TimeSpan(0, 0, 4);
+            _timer.Interval = new TimeSpan(0, 0, 2);
             _timer.Tick += new EventHandler(dispatcherTimer_Tick);
             _timer.Start();
         }
@@ -100,13 +100,17 @@ namespace ProcessNote
 
             var allThreadsForSelectedProcess = AllProcesses[lvProcesses.SelectedIndex].Threads;
             var processName = AllProcesses[lvProcesses.SelectedIndex].ProcessName;
+
+            string threadProcesses = "Threads for process (" + processName + "): \n \n";
+
             foreach (ProcessThread t in allThreadsForSelectedProcess)
             {
-                MessageBox.Show("Threads for process: *" + processName + "<b>" + "Process ID: " +  t.Id.ToString() + ", current state: " + t.ThreadState.ToString());
+               threadProcesses += "Thread ID: " +  t.Id.ToString() + ", current state: " + t.ThreadState.ToString() + "\n";
             }
 
-        }
+            MessageBox.Show(threadProcesses);
 
+        }
 
 
         private void Exit_Click(object sender, RoutedEventArgs e)
