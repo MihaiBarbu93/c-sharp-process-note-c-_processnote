@@ -19,7 +19,7 @@ namespace ProcessNote
     {
         private DispatcherTimer _timer;
 
-        private string sortMethod;
+        private string sortMethod = "Empty";
         public string SortMethod
         {
             get { return sortMethod; }
@@ -32,9 +32,6 @@ namespace ProcessNote
             this.MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;
             ProcessInf.History.Clear();
             List<ProcessInf> stats = new List<ProcessInf>();
-        
-            lvProcesses.ItemsSource = ProcessInf.Stats;
-
 
         }
 
