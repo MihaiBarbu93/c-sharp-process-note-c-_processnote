@@ -13,7 +13,7 @@ namespace ProcessNote
         public string Name { get; set; }
         public string Note { get; set; }
         public long CPU { get; set; }
-        public long Memory { get; set; }
+        public string Memory { get; set; }
         public string Started { get; set; }
         public long Thread { get; set; }
 
@@ -44,7 +44,7 @@ namespace ProcessNote
                 catch (Exception e)
                 {
 
-                    startTime = "6/15/2020 8:45:61 PM";
+                    startTime = "8/28/2020 7:32:40 AM";
                 }
                 result.Add(new ProcessInf()
                 {
@@ -52,7 +52,7 @@ namespace ProcessNote
                     Name = item.ProcessName,
                     Note = verifyNote(item.Id),
                     CPU = cpu,
-                    Memory = Convert.ToInt64(item.WorkingSet64),
+                    Memory = (Convert.ToInt64(item.WorkingSet64) /1024 /1024).ToString() + " MB",
                     Started = startTime,
                     Thread = Convert.ToInt64(item.Threads.Count)
                 });

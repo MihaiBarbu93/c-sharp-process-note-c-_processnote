@@ -82,7 +82,7 @@ namespace ProcessNote
 
             await ProcessInf.PopulateStats();
 
-            lvProcesses.ItemsSource = Sorter.SortProcesses(ProcessInf.Stats, sortMethod);
+            lvProcesses.ItemsSource = ProcessInf.Stats;
 
         }
 
