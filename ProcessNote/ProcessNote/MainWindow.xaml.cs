@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -29,7 +30,8 @@ namespace ProcessNote
         {
             InitializeComponent();
             this.MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;
-            Process[] AllProcesses = Process.GetProcesses();
+            var AllProcesses = new List<Process>();
+            AllProcesses.AddRange(Process.GetProcesses());
             List<ProcessInf> ProcessInfo = new List<ProcessInf>();
 
 
@@ -55,7 +57,48 @@ namespace ProcessNote
 
             lvProcesses.ItemsSource = ProcessInfo;
 
+            /*void UpdateProcesses(object sender, EventArgs e)
+            {
+                var currentIds = AllProcesses.Select(p => p.Id).ToList();
+
+                foreach (var p in Process.GetProcesses())
+                {
+                    if (!currentIds.Remove(p.Id)) // it's a new process id
+                    {
+                        AllProcesses.Add(p);
+                    }
+                }
+
+                foreach (var id in currentIds) // these do not exist any more
+                {
+                    
+                    var x = ProcessInfo.First(p => p.PID == id);
+                    x.Name = "Vasile Cozonaci";
+
+
+                    lvProcesses.ItemsSource = ProcessInfo;
+                    lvProcesses.Items.Refresh();
+                }
+            }*/
+
         }
+
+
+        void lvProcesses_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            var AllProcesses = new List<Process>();
+            AllProcesses.AddRange(Process.GetProcesses());
+
+
+            var allThreadsForSelectedProcess = AllProcesses[lvProcesses.SelectedIndex].Threads;
+            var processName = AllProcesses[lvProcesses.SelectedIndex].ProcessName;
+            foreach (ProcessThread t in allThreadsForSelectedProcess)
+            {
+                MessageBox.Show("Threads for process: *" + processName + "<b>" + "Process ID: " +  t.Id.ToString() + ", current state: " + t.ThreadState.ToString());
+            }
+
+        }
+
 
         public class ProcessInf
         {

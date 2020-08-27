@@ -30,7 +30,7 @@
         </Style>
     </Window.Resources>
     <Border CornerRadius="5" Background="White" BorderBrush="Gray" BorderThickness="0.3">
-        <Grid>
+        <Grid x:Name="TheApp">
             <Grid.RowDefinitions>
                 <RowDefinition Height="60"></RowDefinition>
                 <RowDefinition Height="470"></RowDefinition>
@@ -46,9 +46,11 @@
                 </Grid>
             </Border>
             <Grid Grid.Row="1" Background="#333">
-                <ListView Margin="0" Name="lvProcesses" Background="#333" Foreground="AntiqueWhite">
+
+                <ListView  Margin="0" Name="lvProcesses" Background="#333" Foreground="AntiqueWhite" MouseDoubleClick="lvProcesses_MouseDoubleClick">
                     <ListView.View>
-                        <GridView>
+                        <GridView >
+                           
                             <GridViewColumn Header="Name" Width="120" DisplayMemberBinding="{Binding Name}" />
                             <GridViewColumn Header="PID" Width="50" DisplayMemberBinding="{Binding PID}" />
                             <GridViewColumn Header="Memory" Width="50" DisplayMemberBinding="{Binding Memory}" />
