@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProcessNote"
         mc:Ignorable="d"
+        Loaded="Window_Loaded"
         Title="Process Note" Height="650" Width="800" WindowStyle="None" ResizeMode="CanResize" MouseDown="Window_MouseDown">
     <Window.Resources>
         <LinearGradientBrush x:Key="ButtonBackground" EndPoint="0.5,1" StartPoint="0.5,0">
@@ -47,7 +48,7 @@
             </Border>
             <Grid Grid.Row="1" Background="#333">
 
-                <ListView  Margin="0" Name="lvProcesses" Background="White" Foreground="Black" MouseDoubleClick="lvProcesses_MouseDoubleClick">
+                <ListView  Margin="0" Name="lvProcesses" Background="White" Foreground="Black" Loaded="statsSource_Loaded" MouseDoubleClick="lvProcesses_MouseDoubleClick">
                     <ListView.View>
                         <GridView x:Name="GridViewMain" AllowsColumnReorder="true" >
 
