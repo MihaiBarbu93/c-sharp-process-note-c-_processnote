@@ -86,7 +86,7 @@ namespace ProcessNote
         private void statsSource_Loaded(object sender, RoutedEventArgs e)
         {
             _timer = new DispatcherTimer();
-            _timer.Interval = new TimeSpan(0, 0, 4);
+            _timer.Interval = new TimeSpan(0, 0, 2);
             _timer.Tick += new EventHandler(dispatcherTimer_Tick);
             _timer.Start();
         }
