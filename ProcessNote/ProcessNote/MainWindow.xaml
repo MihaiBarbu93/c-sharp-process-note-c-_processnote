@@ -40,10 +40,6 @@
             <Border BorderBrush="Black" BorderThickness="2">
                 <Grid Background="#333" Grid.Row="0" Cursor="Arrow" Margin="0">
                     <TextBlock Foreground="#999" HorizontalAlignment="Center" Margin="0, 10, 0, 0" FontWeight="Bold" FontSize="12">Process Note</TextBlock>
-                    <Button Style="{StaticResource SameBackgroundButton}" x:Name="close_task_button" BorderThickness="0" Background="DimGray" Foreground="AntiqueWhite" Width="30" Height="20" Margin="20, 10, 0, 0" HorizontalAlignment="Left" VerticalAlignment="Center" Cursor="Hand" FontSize="10" MouseEnter="close_task_button_MouseEnter" MouseLeave="close_task_button_MouseLeave">x
-                        
-                    </Button>
-                    <Button x:Name="info_button" Style="{StaticResource SameBackgroundButton}" BorderThickness="0" Background="DimGray" Foreground="AntiqueWhite" Width="30" Height="20" Margin="60, 10, 0, 0" HorizontalAlignment="Left" VerticalAlignment="Center" Cursor="Hand" FontSize="10" RenderTransformOrigin="-17.521,1.324" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave">i</Button>
                 </Grid>
             </Border>
             <Grid Grid.Row="1" Background="#333">

@@ -147,26 +147,6 @@ namespace ProcessNote
             this.DragMove();
         }
 
-        private void close_task_button_MouseEnter(object sender, MouseEventArgs e)
-        {
-            close_task_button.Background = Brushes.Gray;
-        }
-
-        private void close_task_button_MouseLeave(object sender, MouseEventArgs e)
-        {
-            close_task_button.Background = Brushes.DimGray;
-        }
-
-        private void Button_MouseEnter(object sender, MouseEventArgs e)
-        {
-            info_button.Background = Brushes.Gray;
-        }
-
-        private void Button_MouseLeave(object sender, MouseEventArgs e)
-        {
-            info_button.Background = Brushes.DimGray;
-        }
-
         private void Name_Click(object sender, RoutedEventArgs e)
         {
             Console.WriteLine("Name Header clicked.");
