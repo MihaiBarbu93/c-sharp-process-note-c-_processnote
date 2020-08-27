@@ -1,22 +1,14 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Windows.Threading;
+using System.Configuration;
+using System.Collections.Concurrent;
+
 
 namespace ProcessNote
 {
@@ -25,62 +17,81 @@ namespace ProcessNote
     /// </summary>
     public partial class MainWindow : Window
     {
+        private DispatcherTimer _timer;
+
+        private string sortMethod;
+        public string SortMethod
+        {
+            get { return sortMethod; }
+            set { sortMethod = value; }
+        }
 
         public MainWindow()
         {
             InitializeComponent();
             this.MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;
-            var AllProcesses = new List<Process>();
-            AllProcesses.AddRange(Process.GetProcesses());
-            List<ProcessInf> ProcessInfo = new List<ProcessInf>();
+            ProcessInf.History.Clear();
+            List<ProcessInf> stats = new List<ProcessInf>();
+        
+            lvProcesses.ItemsSource = ProcessInf.Stats;
 
 
-            foreach (Process p in AllProcesses)
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            generateGridView();
+        }
+
+        private void generateGridView()
+        {
+            if (ConfigurationManager.AppSettings.Get("IDVisibility").Equals("false"))
             {
-                PerformanceCounter myAppCpu =
-                new PerformanceCounter(
-                    "Process", "% Processor Time", p.ProcessName, true);
-                PerformanceCounter myAppRam = new PerformanceCounter("Process", "ID Process", p.ProcessName, true);
-
-                
-                double pct = myAppCpu.NextValue();
-                pct = myAppCpu.NextValue() / Environment.ProcessorCount;
-                double ram = myAppRam.NextValue();
-
-
-                ProcessThreadCollection t = p.Threads;
-                
-               
-                ProcessInfo.Add(new ProcessInf() { Name = p.ProcessName, PID = p.Id, Memory = Math.Round(ram / 1024, 2).ToString() + " Mb", CPU = (Math.Round(pct, 2)).ToString() + "%", Threads = t.Count.ToString() });
-                
+                Console.WriteLine(GridViewMain.Columns.Remove(IDColumn));
+            }
+            if (ConfigurationManager.AppSettings.Get("NameVisibility").Equals("false"))
+            {
+                Console.WriteLine(GridViewMain.Columns.Remove(NameColumn));
+            }
+            if (ConfigurationManager.AppSettings.Get("NoteVisibility").Equals("false"))
+            {
+                Console.WriteLine(GridViewMain.Columns.Remove(NoteColumn));
+            }
+            if (ConfigurationManager.AppSettings.Get("CPUVisibility").Equals("false"))
+            {
+                Console.WriteLine(GridViewMain.Columns.Remove(CPUColumn));
+            }
+            if (ConfigurationManager.AppSettings.Get("MemoryVisibility").Equals("false"))
+            {
+                Console.WriteLine(GridViewMain.Columns.Remove(MemoryColumn));
+            }
+            if (ConfigurationManager.AppSettings.Get("StartedVisibility").Equals("false"))
+            {
+                Console.WriteLine(GridViewMain.Columns.Remove(StartedColumn));
+            }
+            if (ConfigurationManager.AppSettings.Get("ThreadVisibility").Equals("false"))
+            {
+                Console.WriteLine(GridViewMain.Columns.Remove(ThreadColumn));
             }
 
-            lvProcesses.ItemsSource = ProcessInfo;
+        }
 
-            /*void UpdateProcesses(object sender, EventArgs e)
-            {
-                var currentIds = AllProcesses.Select(p => p.Id).ToList();
+        private async void dispatcherTimer_Tick(object sender, EventArgs e)
+        {
+            List<ProcessInf> stats = new List<ProcessInf>();
 
-                foreach (var p in Process.GetProcesses())
-                {
-                    if (!currentIds.Remove(p.Id)) // it's a new process id
-                    {
-                        AllProcesses.Add(p);
-                    }
-                }
+            await ProcessInf.PopulateStats();
 
-                foreach (var id in currentIds) // these do not exist any more
-                {
-                    
-                    var x = ProcessInfo.First(p => p.PID == id);
-                    x.Name = "Vasile Cozonaci";
+            lvProcesses.ItemsSource = Sorter.SortProcesses(ProcessInf.Stats, sortMethod);
 
+        }
 
-                    lvProcesses.ItemsSource = ProcessInfo;
-                    lvProcesses.Items.Refresh();
-                }
-            }*/
-
+        private void statsSource_Loaded(object sender, RoutedEventArgs e)
+        {
+            _timer = new DispatcherTimer();
+            _timer.Interval = new TimeSpan(0, 0, 4);
+            _timer.Tick += new EventHandler(dispatcherTimer_Tick);
+            _timer.Start();
         }
 
 
@@ -100,20 +111,6 @@ namespace ProcessNote
         }
 
 
-        public class ProcessInf
-        {
-            public string Name { get; set; }
-
-            public int PID { get; set; }
-
-            public String Memory { get; set; }
-
-            public String CPU { get; set; }
-
-            public String Threads { get; set; }
-
-
-        }
 
         private void Exit_Click(object sender, RoutedEventArgs e)
         {
@@ -168,5 +165,157 @@ namespace ProcessNote
         {
             info_button.Background = Brushes.DimGray;
         }
+
+        private void Name_Click(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine("Name Header clicked.");
+            if (sortMethod.Equals("NameAscending"))
+            {
+                sortMethod = "NameDescending";
+                Console.WriteLine("sortMethod changed to: " + sortMethod);
+            }
+            else
+            {
+                sortMethod = "NameAscending";
+                Console.WriteLine("sortMethod changed to: " + sortMethod);
+            }
+        }
+
+        private void ID_Click(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine("ID Header clicked.");
+            if (sortMethod.Equals("IDAscending"))
+            {
+                sortMethod = "IDDescending";
+                Console.WriteLine("sortMethod changed to: " + sortMethod);
+            }
+            else
+            {
+                sortMethod = "IDAscending";
+                Console.WriteLine("sortMethod changed to: " + sortMethod);
+            }
+        }
+
+        private void Note_Click(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine("Note Header clicked.");
+            if (sortMethod.Equals("NoteAscending"))
+            {
+                sortMethod = "NoteDescending";
+                Console.WriteLine("sortMethod changed to: " + sortMethod);
+            }
+            else
+            {
+                sortMethod = "NoteAscending";
+                Console.WriteLine("sortMethod changed to: " + sortMethod);
+            }
+        }
+
+        private void CPU_Click(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine("CPU Header clicked.");
+            if (sortMethod.Equals("CPUAscending"))
+            {
+                sortMethod = "CPUDescending";
+                Console.WriteLine("sortMethod changed to: " + sortMethod);
+            }
+            else
+            {
+                sortMethod = "CPUAscending";
+                Console.WriteLine("sortMethod changed to: " + sortMethod);
+            }
+        }
+
+        private void Memory_Click(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine("Memory Header clicked.");
+            if (sortMethod.Equals("MemoryAscending"))
+            {
+                sortMethod = "MemoryDescending";
+                Console.WriteLine("sortMethod changed to: " + sortMethod);
+            }
+            else
+            {
+                sortMethod = "MemoryAscending";
+                Console.WriteLine("sortMethod changed to: " + sortMethod);
+            }
+        }
+
+        private void Started_Click(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine("Started Header clicked.");
+            if (sortMethod.Equals("StartedAscending"))
+            {
+                sortMethod = "StartedDescending";
+                Console.WriteLine("sortMethod changed to: " + sortMethod);
+            }
+            else
+            {
+                sortMethod = "StartedAscending";
+                Console.WriteLine("sortMethod changed to: " + sortMethod);
+            }
+        }
+
+        private void Thread_Click(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine("Thread Header clicked.");
+            if (sortMethod.Equals("ThreadAscending"))
+            {
+                sortMethod = "ThreadDescending";
+                Console.WriteLine("sortMethod changed to: " + sortMethod);
+            }
+            else
+            {
+                sortMethod = "ThreadAscending";
+                Console.WriteLine("sortMethod changed to: " + sortMethod);
+            }
+        }
+
+        private void ShowThreads_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var processId = GetProcessOnMenuClick(sender).ID;
+                ThreadsWindow window = new ThreadsWindow(processId);
+                window.Show();
+            }
+            catch (Exception exy)
+            {
+                Console.WriteLine(exy.Message);
+            }
+        }
+
+        private ProcessInf GetProcessOnMenuClick(object sender)
+        {
+            var menuItem = (MenuItem)sender;
+            var contextMenu = (ContextMenu)menuItem.Parent;
+            var item = (ListView)contextMenu.PlacementTarget;
+            return (ProcessInf)item.SelectedItem;
+        }
+
+        private void AddComment_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var processId = GetProcessOnMenuClick(sender).ID;
+                Console.WriteLine("Process id: " + processId);
+                CommentWindow window = new CommentWindow(processId);
+                window.Show();
+            }
+            catch (Exception exy)
+            {
+                Console.WriteLine(exy.Message);
+            }
+        }
+
+        private void CheckBox_Click(object sender, RoutedEventArgs e)
+        {
+            this.Topmost = this.Topmost ? false : true;
+        }
+
+       
+
+
+       
     }
 }
